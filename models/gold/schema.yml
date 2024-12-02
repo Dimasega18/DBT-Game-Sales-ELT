@@ -7,8 +7,8 @@ models:
       - dbt_expectations.expect_table_row_count_to_equal_other_table:
           compare_model: source('bronze', 'region_sales')
           factor: 1
-          row_condition: "id is not null"
-          compare_row_condition: "id is not null"
+          row_condition: "region_id is not null"
+          compare_row_condition: "region_id is not null"
     columns:
       - name: region_id
         description: "An identifier for each region."
