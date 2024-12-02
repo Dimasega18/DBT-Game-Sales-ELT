@@ -142,6 +142,7 @@ sources:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
                   column_type: CHARACTER VARYING
+              - unique
               - not_null
       
       - name: platform
@@ -165,6 +166,7 @@ sources:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
                   column_type: CHARACTER VARYING
+              - unique
               - not_null
       
       - name: publisher
@@ -188,6 +190,7 @@ sources:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
                   column_type: CHARACTER VARYING
+              - unique
               - not_null
       
       - name: region
@@ -211,6 +214,7 @@ sources:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
                   column_type: CHARACTER VARYING
+              - unique
               - not_null
       
       - name: region_sales

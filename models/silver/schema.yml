@@ -73,10 +73,10 @@ models:
           - dbt_expectations.expect_column_to_exist
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: INTEGER
-          - not_null
           - relationships:
               to: ref('svr_game_publisher')
               field: id
+          - not_null
 
       - name: platform_name
         description: "The name of the platform."
