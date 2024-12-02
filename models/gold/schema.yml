@@ -1,0 +1,97 @@
+models:
+  - name: gold_region_sales
+    description: "{{ doc('gold_region_sales') }}"
+    data_tests:
+      - dbt_expectations.expect_table_column_count_to_equal:
+          value: 7
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('bronze', 'region_sales')
+          factor: 1
+          row_condition: "id is not null"
+          compare_row_condition: "id is not null"
+    columns:
+      - name: region_id
+        description: "An identifier for each region."
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: INTEGER
+          - relationships:
+              to: ref('svr_region_sales')
+              field: region_id
+          - not_null
+
+      - name: region_name
+        description: 'The name of the region, such as "North America," "Europe," etc.'
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: CHARACTER VARYING
+          - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
+              column_name: region_name
+              compare_model: source('bronze','region')
+              compare_column_name: region_name
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['North America', 'Europe', 'Japan', 'Other']
+          - not_null
+
+      - name: platform_name
+        description: 'The name of the platform, such as "PS3," "PS," "3DS," etc.'
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: CHARACTER VARYING
+          - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
+              column_name: platform_name
+              compare_model: source('bronze','platform')
+              compare_column_name: platform_name
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['Wii', 'NES', 'GB', 'DS', 'X360', 'PS3', 'PS2', 'SNES', 'GBA', '3DS', 'PS4', 'N64', 'PS', 'XB', 'PC', '2600', 'PSP', 'XOne', 'GC', 'WiiU', 'GEN', 'DC', 'PSV', 'SAT', 'SCD', 'WS', 'NG', 'TG16', '3DO', 'GG', 'PCFX']
+          - not_null
+
+      - name: release_year
+        description: "The year the game was released on the platform."
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: TEXT
+          - dbt_expectations.expect_column_value_lengths_to_equal:
+              value: 4
+          - not_null
+      
+      - name: genre_name
+        description: "The name of the genre."
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: CHARACTER VARYING
+          - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
+              column_name: genre_name
+              compare_model: source('bronze','genre')
+              compare_column_name: genre_name
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['Action', 'Adventure', 'Fighting', 'Misc', 'Platform', 'Puzzle', 'Racing', 'Role-Playing', 'Shooter', 'Simulation', 'Sports', 'Strategy']
+          - not_null
+      
+      - name: game_name
+        description: "The name of the game."
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: CHARACTER VARYING
+          - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
+              column_name: game_name
+              compare_model: source('bronze','game')
+              compare_column_name: game_name
+          - not_null
+
+      - name: num_sales
+        description: "The total number of sales in the region for the specific game-platform."
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: NUMERIC
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              strictly: False
+          - not_null

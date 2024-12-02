@@ -3,15 +3,15 @@
 The `gold_region_sales` table includes the following columns:
 
 1. **region_id (Foreign Key)**  
-   A unique identifier for each region.  
-   *(Sourced from the `region` table in Bronze.)*
+   An identifier for each region.  
+   *(Sourced from the `svr_region_sales` table in Silver.)*
 
 2. **region_name (Varchar)**  
-   The name of the region, such as "North America," "Europe," or "Asia."  
-   *(Sourced from the `region` table in Bronze.)*
+   The name of the region, such as "North America," "Europe," or "Japan."  
+   *(Sourced from the `svr_region_sales` table in Silver.)*
 
 3. **platform_name (Varchar)**  
-   The name of the platform, such as "PlayStation," "Xbox," or "PC."  
+   The name of the platform.  
    *(Sourced from the `svr_game_platform` table in Silver.)*
 
 4. **release_year (Integer)**  
@@ -19,11 +19,11 @@ The `gold_region_sales` table includes the following columns:
    *(Sourced from the `svr_game_platform` table in Silver.)*
 
 5. **genre_name (Varchar)**  
-   The name of the game genre, such as "Action," "RPG," or "Simulation."  
+   The name of the game genre.  
    *(Sourced from the `svr_game` table in Silver.)*
 
 6. **game_name (Varchar)**  
-   The name of the game, such as "The Legend of Zelda," "Minecraft," or "FIFA."  
+   The name of the game.
    *(Sourced from the `svr_game` table in Silver.)*
 
 7. **num_sales (Integer)**  
