@@ -46,7 +46,6 @@ sources:
               value: 4
         columns:
           - name: id
-            description: "A unique identifier for each record in the game_platform table."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -55,7 +54,6 @@ sources:
               - not_null
           
           - name: game_publisher_id
-            description: "The ID linking the record to the game_publisher table."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -66,7 +64,6 @@ sources:
               - not_null
           
           - name: platform_id
-            description: "The ID linking the record to the platform table."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -77,7 +74,6 @@ sources:
               - not_null
 
           - name: release_year
-            description: "The year the game was released on the specified platform."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -91,7 +87,6 @@ sources:
               value: 3
         columns:
           - name: id
-            description: "A unique identifier for each record in the game_publisher table."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -100,7 +95,6 @@ sources:
               - not_null
           
           - name: game_id
-            description: "The ID linking the record to the games table."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -111,7 +105,6 @@ sources:
               - not_null
           
           - name: publisher_id
-            description: "The ID linking the record to the publisher table."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -128,7 +121,6 @@ sources:
               value: 2
         columns:
           - name: id
-            description: "A unique identifier for each genre."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -137,7 +129,6 @@ sources:
               - not_null
           
           - name: genre_name
-            description: "The name of the genre."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -152,7 +143,6 @@ sources:
               value: 2
         columns:
           - name: id
-            description: "A unique identifier for each platform."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -161,7 +151,6 @@ sources:
               - not_null
           
           - name: platform_name
-            description: 'The name of the platform, such as "PS3," "PS," "3DS," etc.'
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -176,7 +165,6 @@ sources:
               value: 2
         columns:
           - name: id
-            description: "A unique identifier for each publisher."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -185,7 +173,6 @@ sources:
               - not_null
           
           - name: publisher_name
-            description: 'The name of the publisher, such as "1C Company," "Aerosoft," etc.'
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -200,7 +187,6 @@ sources:
               value: 2
         columns:
           - name: id
-            description: "A unique identifier for each region."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -209,7 +195,6 @@ sources:
               - not_null
           
           - name: region_name
-            description: 'The name of the region, such as "North America," "Europe," etc.'
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -224,7 +209,6 @@ sources:
               value: 3
         columns:
           - name: region_id
-            description: "The ID linking the record to the region table, identifying the region where the sales occurred."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -235,7 +219,6 @@ sources:
               - not_null
           
           - name: game_platform_id
-            description: "The ID linking the record to the game_platform table, identifying the platform on which the game was sold."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -246,7 +229,6 @@ sources:
               - not_null
 
           - name: num_sales
-            description: "The number of sales recorded for the specific region and platform."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:

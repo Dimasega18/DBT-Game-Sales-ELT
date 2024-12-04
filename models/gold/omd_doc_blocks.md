@@ -2,8 +2,8 @@
 
 The `gold_region_sales` table includes the following columns:
 
-1. **region_id (Foreign Key)**  
-   An identifier for each region.  
+1. **id (Primary Key)**
+    A unique identifier for each record in the region sales table.
    *(Sourced from the `svr_region_sales` table in Silver.)*
 
 2. **region_name (Varchar)**  

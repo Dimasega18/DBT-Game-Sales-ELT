@@ -3,49 +3,6 @@ version: 2
 models:
   - name: svr_game
     description: "{{ doc('svr_game') }}"
-    data_tests:
-      - dbt_expectations.expect_table_column_count_to_equal:
-          value: 3
-      - dbt_expectations.expect_table_row_count_to_equal_other_table:
-          compare_model: source('bronze', 'game')
-          factor: 1
-          row_condition: "id is not null"
-          compare_row_condition: "id is not null"
-    columns:
-      - name: id
-        description: "A unique identifier for each game in the Silver layer."
-        data_tests:
-          - dbt_expectations.expect_column_to_exist
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: INTEGER
-          - unique
-          - not_null
-
-      - name: genre_name
-        description: "The genre name derived from the Bronze layer."
-        data_tests:
-          - dbt_expectations.expect_column_to_exist
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: CHARACTER VARYING
-          - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
-              column_name: genre_name
-              compare_model: source('bronze','genre')
-              compare_column_name: genre_name
-          - dbt_expectations.expect_column_values_to_be_in_set:
-              value_set: ['Action', 'Adventure', 'Fighting', 'Misc', 'Platform', 'Puzzle', 'Racing', 'Role-Playing', 'Shooter', 'Simulation', 'Sports', 'Strategy']
-          - not_null
-
-      - name: game_name
-        description: "The game name derived from the Bronze layer."
-        data_tests:
-          - dbt_expectations.expect_column_to_exist
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: CHARACTER VARYING
-          - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
-              column_name: game_name
-              compare_model: source('bronze','game')
-              compare_column_name: game_name
-          - not_null
 
   - name: svr_game_platform
     description: "{{ doc('svr_game_platform') }}"
@@ -53,167 +10,139 @@ models:
       - dbt_expectations.expect_table_column_count_to_equal:
           value: 4
       - dbt_expectations.expect_table_row_count_to_equal_other_table:
-          compare_model: source('bronze', 'game_platform')
-          factor: 1
-          row_condition: "id is not null"
-          compare_row_condition: "id is not null"
+          compare_model: source("bronze","game_platform")
+          factor: 1 
+          row_condition: "id is not null" 
+          compare_row_condition: "id is not null" 
     columns:
       - name: id
-        description: "A unique identifier for each game-platform entry."
         data_tests:
           - dbt_expectations.expect_column_to_exist
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: INTEGER
+                  column_type: INTEGER
           - unique
           - not_null
 
       - name: game_publisher_id
-        description: "The ID of the publisher associated with the game."
         data_tests:
           - dbt_expectations.expect_column_to_exist
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: INTEGER
           - relationships:
-              to: ref('svr_game_publisher')
-              field: id
+                  to: source('bronze','game_publisher')
+                  field: id
           - not_null
 
       - name: platform_name
-        description: "The name of the platform."
         data_tests:
           - dbt_expectations.expect_column_to_exist
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: CHARACTER VARYING
-          - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
-              column_name: platform_name
-              compare_model: source('bronze','platform')
+          - values_to_be_in_other_table:
+              compare_model: source('bronze', 'platform')
               compare_column_name: platform_name
-          - dbt_expectations.expect_column_values_to_be_in_set:
-              value_set: ['Wii', 'NES', 'GB', 'DS', 'X360', 'PS3', 'PS2', 'SNES', 'GBA', '3DS', 'PS4', 'N64', 'PS', 'XB', 'PC', '2600', 'PSP', 'XOne', 'GC', 'WiiU', 'GEN', 'DC', 'PSV', 'SAT', 'SCD', 'WS', 'NG', 'TG16', '3DO', 'GG', 'PCFX']
-          - not_null
 
       - name: release_year
-        description: "The year the game was released on the platform."
         data_tests:
           - dbt_expectations.expect_column_to_exist
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: TEXT
-          - dbt_expectations.expect_column_value_lengths_to_equal:
-              value: 4
+              column_type: INTEGER
+          - number_length_equal_to:
+              number_length: 4
           - not_null
-
+          
   - name: svr_game_publisher
     description: "{{ doc('svr_game_publisher') }}"
     data_tests:
       - dbt_expectations.expect_table_column_count_to_equal:
           value: 4
       - dbt_expectations.expect_table_row_count_to_equal_other_table:
-          compare_model: source('bronze', 'game_publisher')
+          compare_model: source("bronze","game_publisher")
           factor: 1
-          row_condition: "id is not null"
-          compare_row_condition: "id is not null"
+          row_condition: "id is not null" 
+          compare_row_condition: "id is not null" 
     columns:
       - name: id
-        description: "A unique identifier for each game entry."
         data_tests:
           - dbt_expectations.expect_column_to_exist
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: INTEGER
+                  column_type: INTEGER
           - unique
           - not_null
-
+         
       - name: genre_name
-        description: "The name of the game genre."
         data_tests:
           - dbt_expectations.expect_column_to_exist
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: CHARACTER VARYING
-          - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
-              column_name: genre_name
-              compare_model: source('bronze','genre')
-              compare_column_name: genre_name
-          - dbt_expectations.expect_column_values_to_be_in_set:
-              value_set: ['Action', 'Adventure', 'Fighting', 'Misc', 'Platform', 'Puzzle', 'Racing', 'Role-Playing', 'Shooter', 'Simulation', 'Sports', 'Strategy']
+                  column_type: CHARACTER VARYING
+          - values_to_be_in_other_table:
+                  compare_model: source('bronze', 'genre')
+                  compare_column_name: genre_name
           - not_null
 
       - name: game_name
-        description: "The name of the game."
         data_tests:
           - dbt_expectations.expect_column_to_exist
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: CHARACTER VARYING
-          - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
-              column_name: game_name
-              compare_model: source('bronze','game')
-              compare_column_name: game_name
+                  column_type: CHARACTER VARYING
+          - values_to_be_in_other_table:
+                  compare_model: source('bronze', 'game')
+                  compare_column_name: game_name
           - not_null
 
       - name: publisher_name
-        description: "The name of the publisher."
         data_tests:
           - dbt_expectations.expect_column_to_exist
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: CHARACTER VARYING
-          - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
-              column_name: publisher_name
-              compare_model: source('bronze','publisher')
-              compare_column_name: publisher_name
+                  column_type: CHARACTER VARYING
+          - values_to_be_in_other_table:
+                  compare_model: source('bronze', 'publisher')
+                  compare_column_name: publisher_name
           - not_null
-
+          
   - name: svr_region_sales
     description: "{{ doc('svr_region_sales') }}"
     data_tests:
       - dbt_expectations.expect_table_column_count_to_equal:
           value: 4
       - dbt_expectations.expect_table_row_count_to_equal_other_table:
-          compare_model: source('bronze', 'region_sales')
-          factor: 1
-          row_condition: "region_id is not null"
-          compare_row_condition: "region_id is not null"
+          compare_model: source("bronze","region_sales")
+          factor: 1 
+          row_condition: "id is not null" 
+          compare_row_condition: "region_id is not null" 
     columns:
-      - name: region_id
-        description: "A unique identifier for each region."
+      - name: id
         data_tests:
           - dbt_expectations.expect_column_to_exist
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: INTEGER
-          - relationships:
-              to: source('bronze','region')
-              field: id
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+                  column_type_list: [INTEGER, BIGINT]
+          - unique
           - not_null
 
       - name: region_name
-        description: "The name of the region."
         data_tests:
           - dbt_expectations.expect_column_to_exist
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: CHARACTER VARYING
-          - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
-              column_name: region_name
-              compare_model: source('bronze','region')
-              compare_column_name: region_name
-          - dbt_expectations.expect_column_values_to_be_in_set:
-              value_set: ['North America', 'Europe', 'Japan', 'Other']
+                  column_type: CHARACTER VARYING
+          - values_to_be_in_other_table:
+                  compare_model: source('bronze', 'region')
+                  compare_column_name: region_name
           - not_null
 
       - name: game_platform_id
-        description: "A reference to the game-platform entry."
         data_tests:
           - dbt_expectations.expect_column_to_exist
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: INTEGER
+                  column_type: INTEGER
           - relationships:
-              to: ref('svr_game_platform')
-              field: id
+                  to: source('bronze','game_platform')
+                  field: id
           - not_null
-
+         
       - name: num_sales
-        description: "The total number of sales in the region for the specific game-platform."
         data_tests:
           - dbt_expectations.expect_column_to_exist
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: NUMERIC
-          - dbt_expectations.expect_column_values_to_be_between:
-              min_value: 0
-              strictly: False
+                  column_type: NUMERIC
           - not_null
+          

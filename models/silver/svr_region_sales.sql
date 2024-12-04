@@ -1,8 +1,7 @@
 {{ config(schema='silver',materialized='table') }}
 
 SELECT 
-    ROW_NUMBER() OVER(order by rs.region_id) AS region_sales_id,
-    rs.region_id,
+    ROW_NUMBER() OVER(ORDER BY id) AS id,
     r.region_name,
     rs.game_platform_id,
     rs.num_sales

@@ -1,4 +1,4 @@
-{{ config(schema='silver',materialized='table') }}
+{{ config(materialized='ephemeral') }}
 
 SELECT 
     g.id,

@@ -1,7 +1,7 @@
 {{ config(schema='gold',materialized='table') }}
 
 SELECT
-	srs.region_id, 
+	srs.id, 
 	srs.region_name, 
 	sgp.platform_name, 
 	sgp.release_year,

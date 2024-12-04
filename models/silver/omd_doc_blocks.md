@@ -1,87 +1,41 @@
 {% docs svr_game %}
+**Description**: A temporary table containing summarized game data, generated during query execution.
 
-The `svr_game` table includes the following columns:
-
-1. **id (Primary Key)**
-    A unique identifier for each game. 
-    *(Sourced from the `game` table in Bronze.)*
-
-2. **genre_name (Varchar)**
-    The name of the game genre. 
-    *(Sourced from the `genre` table in Bronze.)*
-
-3. **game_name (Varchar)**
-    The name of the game. 
-    *(Sourced from the `game` table in Bronze.)*
-
+**Columns**:
+`id`: A unique identifier for the record.
+`genre_name`: The genre of the game.
+`game_name`: The name of the game.
 {% enddocs %}
 
 
 {% docs svr_game_platform %}
+**Description**: Represents the relationship between games, their publishers, and the platforms they are available on, including the release year.
 
-The `svr_game_platform` table includes the following columns:
-
-1. **id (Primary Key)**
-    A unique identifier for each game-platform entry. 
-    *(Sourced from the `game_platform` table in Bronze.)*
-
-2. **game_publisher_id (Foreign Key)**
-    The ID of the publisher associated with the game. 
-    *(Sourced from the `svr_game_publisher` table in Silver.)*
-
-3. **platform_name (Varchar)**
-    The name of the platform. 
-    *(Sourced from the `platform` table in Bronze.)*
-
-4. **release_year (Text)**
-    The year the game was released on the platform. 
-    *(Sourced from the `game_platform` table in Bronze.)*
-
+**Columns**:
+`id`: A unique identifier for the record.
+`genre_publisher_id`: Foreign key referencing the id column in svr_game_publisher.
+`platform_name`: The name of the platform the game is available on.
+`release_year`: The year the game was released on the platform.
 {% enddocs %}
 
 
 {% docs svr_game_publisher %}
+**Description**: Contains data linking games and their publishers.
 
-The `svr_game_publisher` table includes the following columns:
-
-1. **id (Primary Key)**
-    A unique identifier for each game entry. 
-    *(Sourced from the `game` table in Bronze.)*
-
-2. **genre_name (Varchar)**
-    The name of the game genre. 
-    *(Sourced from the `genre` table in Bronze.)*
-
-3. **game_name (Varchar)**
-    The name of the game. 
-    *(Sourced from the `game` table in Bronze.)*
-
-4. **publisher_name (Varchar)**
-    The name of the publisher. 
-    *(Sourced from the `publisher` table in Bronze.)*
-
+**Columns**:
+`id`: A unique identifier for the record.
+`game_name`: The name of the game.
+`publisher_name`: The name of the publisher.
 {% enddocs %}
 
 
 {% docs svr_region_sales %}
+**Description**: Stores region sales data incrementally, allowing new or updated data to be added efficiently.
 
-The `svr_region_sales` table includes the following columns:
-
-1. **region_id (Foreign Key)**
-    A unique identifier for each region. 
-    *(Sourced from the `region` table in Bronze.)*
-
-2. **region_name (Varchar)**
-    The name of the region. 
-    *(Sourced from the `region` table in Bronze.)*
-
-3. **game_platform_id (Foreign Key)**
-    A reference to the game-platform entry. 
-    *(Sourced from the `svr_game_platform` table in Silver.)*
-
-4. **num_sales (Integer)**
-    The total number of sales in the region for the specific game-platform. *(Sourced from the `region_sales` table in Bronze.)*
-
-
+**Columns**:
+`id`: A unique identifier for each region sale record.
+`region_name`: The name of the region.
+`game_platform_id`: Foreign key referencing the id column in the svr_game_platform table.
+`num_sales`: The number of sales in the region.
 {% enddocs %}
 

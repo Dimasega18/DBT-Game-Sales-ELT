@@ -1,117 +1,75 @@
 {% docs game %}
+**Description**: Contains details about games.
 
-The `game` table stores the following data:
-
-1. **id (Primary Key)**
-    A unique identifier for each game.
-
-2. **genre_id (Foreign Key)**
-    Links the game to its corresponding genre in the `genre` table.
-
-3. **game_name (Varchar)**
-    The full name of the game.
-
+**Columns**:
+`id`: A unique identifier for each game.
+`genre_id`: Foreign key referencing the genre of the game.
+`game_name`: The name of the game.
 {% enddocs %}
 
 
 {% docs game_platform %}
+**Description**: Tracks the relationship between games, their publishers, and the platforms they are available on.
 
-The `game_platform` table includes the following columns:
-
-1. **id (Primary Key)**
-    A unique identifier for each record in the `game_platform` table.
-
-2. **game_publisher_id (Foreign Key)**
-    Links the record to the publisher in the `game_publisher` table.
-
-3. **platform_id (Foreign Key)**
-    Links the record to the platform in the `platform` table.
-
-4. **release_year (Integer)**
-    The year the game was released on the specified platform.
-
+**Columns**:
+`id`: A unique identifier for each record.
+`game_publisher_id`: Foreign key referencing the id column in the game_publisher table.
+`platform_id`: Foreign key referencing the platform.
+`release_year`: The year the game was released on the platform.
 {% enddocs %}
 
 
 {% docs game_publisher %}
+**Description**: Links games to their respective publishers.
 
-The `game_publisher` table includes the following columns:
-
-1. **id (Primary Key)**
-    A unique identifier for each record in the `game_publisher` table.
-
-2. **game_id (Foreign Key)**
-    Links the record to the `games` table, identifying the specific game.
-
-3. **publisher_id (Foreign Key)**
-    Links the record to the `publisher` table, identifying the publisher of the game.
-
+**Columns**:
+`id`: A unique identifier for each record.
+`game_id`: Foreign key referencing the game.
+`publisher_id`: Foreign key referencing the publisher.
 {% enddocs %}
 
 
 {% docs genre %}
+**Description**: Stores different genres of games.
 
-The `genre` table includes the following columns:
-
-1. **id (Primary Key)**
-    A unique identifier for each genre.
-
-2. **genre_name (Varchar)**
-    The name of the genre, such as "Action," "Adventure," "Fighting," etc.
-
+**Columns**:
+`id`: A unique identifier for each genre.
+`genre_name`: The name of the genre.
 {% enddocs %}
 
 
 {% docs platform %}
+**Description**: Stores information about gaming platforms.
 
-The `platform` table includes the following columns:
-
-1. **id (Primary Key)**
-    A unique identifier for each platform.
-
-2. **platform_name (Varchar)**
-    The name of the platform, such as "PS3," "PS," "3DS," etc.
-
+**Columns**:
+`id`: A unique identifier for each platform.
+`platform_name`: The name of the platform.
 {% enddocs %}
 
 
 {% docs publisher %}
+**Description**: Contains details about game publishers.
 
-The `publisher` table includes the following columns:
-
-1. **id (Primary Key)**
-    A unique identifier for each publisher.
-
-2. **publisher_name (Varchar)**
-    The name of the publisher, such as "1C Company," "Aerosoft," etc.
-
+**Columns**:
+`id`: A unique identifier for each publisher.
+`publisher_name`: The name of the publisher.
 {% enddocs %}
 
 
 {% docs region %}
+**Description**: Contains data about regions.
 
-The `region` table includes the following columns:
-
-1. **id (Primary Key)**
-    A unique identifier for each region. This column ensures that each region is distinct in the database.
-
-2. **region_name (Varchar)**
-    The name of the region, such as "North America," "Europe," etc. This helps to identify the geographical area.
-
+**Columns**:
+`id`: A unique identifier for each region.
+`region_name`: The name of the region.
 {% enddocs %}
 
 
 {% docs region_sales %}
+**Description**: Tracks sales of games across regions.
 
-The `region_sales` table includes the following columns:
-
-1. **region_id (Foreign Key)**
-    Links the record to the `region` table, identifying the geographical region where the sales occurred.
-
-2. **game_platform_id (Foreign Key)**
-    Links the record to the `game_platform` table, identifying the platform on which the game was sold.
-
-3. **num_sales (Integer)**
-    The number of game sales recorded for the specified region and platform.
-
+**Columns**:
+`region_id`: Foreign key referencing the region.
+`game_platform_id`: Foreign key referencing the game on a specific platform.
+`num_sales`: The number of sales in the region.
 {% enddocs %}
