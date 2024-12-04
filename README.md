@@ -36,7 +36,7 @@ The project leverages dbt to implement a robust ELT (Extract, Load, Transform) p
 
 The raw dataset includes information about games, platforms, genres, publishers, and regional sales. It serves as the primary source for the ELT process.
 
-- **Source:** [GitHub Raw Data Repository](#)
+- **Source:** [GitHub Raw Data Repository](https://github.com/bbrumm/databasestar/tree/main/sample_databases/sample_db_videogames/postgres)
 
 ---
 
