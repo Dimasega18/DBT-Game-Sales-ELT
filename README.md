@@ -12,21 +12,22 @@ The project leverages dbt to implement a robust ELT (Extract, Load, Transform) p
 - **Description:** Stores raw tables including `game`, `game_platform`, `game_publisher`, `genre`, `platform`, `publisher`, `region`, and `region_sales`.
 - **Key Features:**
   - Performed basic validations such as data type checks and column counts to ensure data consistency.
+  - Conducted tests for primary key uniqueness and foreign key relationships to maintain referential integrity.
   - Documented each table to improve data understanding and lineage tracking.
 
 ### 2. **Silver Schema (Clean Layer)**
 - **Description:** Transforms raw data into clean, joined tables for easier analysis.
-- **Tables:** `svr_game`, `svr_game_platform`, `svr_game_publisher`, and `svr_game_sales`.
+- **Tables:** `svr_game`, `svr_game_platform`, `svr_game_publisher`, and `svr_region_sales`.
 - **Key Features:**
   - Conducted detailed data quality testing, including:
-    - Primary key uniqueness checks.
-    - Foreign key validity tests.
+    - `values_to_be_in_other_table` to ensure reference integrity between tables.
+    - `expect_column_values_between` to validate numerical data ranges.
   - Ensured clean and well-structured data for downstream analytics.
 
 ### 3. **Gold Schema (Analytics Layer)**
 - **Description:** Provides a unified table, `gold_region_sales`, enabling comprehensive insights into video game sales trends.
 - **Key Features:**
-  - Consolidates clean data into a single analytics-ready table.
+  - Consolidates clean data from Silver layer tables into a single analytics-ready table.
   - Facilitates detailed reporting and trend analysis.
 
 ---
@@ -42,21 +43,33 @@ The raw dataset includes information about games, platforms, genres, publishers,
 ## Repository Structure
 
 ```
+├── analyses
+├── macros
+│   ├── test
+│   │   ├── test_number_length_equal_to.sql
+│   │   ├── test_values_to_be_in_table.sql
+│   ├── generate_schema_name.sql
 ├── models
 │   ├── bronze
-│   │   ├── raw_game.sql
-│   │   ├── raw_game_platform.sql
-│   │   ├── ...
+│   │   ├── omd_doc_blocks.md
+│   │   ├── schema.yml
 │   ├── silver
+│   │   ├── omd_doc_blocks.md
+│   │   ├── schema.yml
 │   │   ├── svr_game.sql
-│   │   ├── svr_game_sales.sql
-│   │   ├── ...
+│   │   ├── svr_game_platform.sql
+│   │   ├── svr_game_publisher.sql
+│   │   ├── svr_region_sales.sql
 │   ├── gold
-│       ├── gold_region_sales.sql
+│   │   ├── omd_doc_blocks.md
+│   │   ├── schema.yml
+│   │   ├── gold_region_sales.sql
 ├── snapshots
+│   ├── game_platform_snapshot.sql
+│   ├── game_snapshot.sql
+│   ├── publisher_snapshot.sql
+│   ├── region_sales_snapshot.sql
 ├── tests
-├── analyses
-├── docs
 ├── README.md
 ```
 
@@ -68,8 +81,8 @@ The raw dataset includes information about games, platforms, genres, publishers,
    - All tables are documented to improve data understanding and ensure transparency.
 
 2. **Data Quality Checks:**
-   - Basic checks in the Bronze layer.
-   - Advanced checks (e.g., key validity and uniqueness) in the Silver layer.
+   - Primary key and foreign key tests in the Bronze layer.
+   - Advanced tests, including reference integrity and range checks, in the Silver layer.
 
 3. **Analytics-Ready Data:**
    - Unified Gold layer table for easy visualization and insights.
