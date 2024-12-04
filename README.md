@@ -21,7 +21,7 @@ The project leverages dbt to implement a robust ELT (Extract, Load, Transform) p
 - **Key Features:**
   - Conducted detailed data quality testing, including:
     - `values_to_be_in_other_table` to ensure reference integrity between tables.
-    - `expect_column_values_between` to validate numerical data ranges.
+    - `expect_column_values_to_be_between` to validate numerical data ranges.
   - Ensured clean and well-structured data for downstream analytics.
 
 ### 3. **Gold Schema (Analytics Layer)**
