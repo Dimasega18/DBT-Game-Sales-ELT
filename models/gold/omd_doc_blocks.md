@@ -1,33 +1,14 @@
 {% docs gold_region_sales %}
 
-The `gold_region_sales` table includes the following columns:
+**Description**: Tracks sales of games across regions.
 
-1. **id (Primary Key)**
-    A unique identifier for each record in the region sales table.
-   *(Sourced from the `svr_region_sales` table in Silver.)*
-
-2. **region_name (Varchar)**  
-   The name of the region, such as "North America," "Europe," or "Japan."  
-   *(Sourced from the `svr_region_sales` table in Silver.)*
-
-3. **platform_name (Varchar)**  
-   The name of the platform.  
-   *(Sourced from the `svr_game_platform` table in Silver.)*
-
-4. **release_year (Integer)**  
-   The year the game was released on the platform.  
-   *(Sourced from the `svr_game_platform` table in Silver.)*
-
-5. **genre_name (Varchar)**  
-   The name of the game genre.  
-   *(Sourced from the `svr_game` table in Silver.)*
-
-6. **game_name (Varchar)**  
-   The name of the game.
-   *(Sourced from the `svr_game` table in Silver.)*
-
-7. **num_sales (Integer)**  
-   The total number of sales in the region for the specific game-platform.  
-   *(Sourced from the `svr_region_sales` table in Silver.)*
+**Columns**:
+`id`: A unique identifier for each record in the table.
+`region_name`: Name of the region (e.g., "North America").
+`platform_name`: Name of the platform (e.g., "PS4").
+`release_year`: Year the game was released on the platform.
+`genre_name`: Name of the game genre (e.g., "Action").
+`game_name`: Name of the game (e.g., "Super Mario Bros.").
+`num_sales`: Total number of sales in the region for the specific game-platform
 
 {% enddocs %}

@@ -1,86 +1,79 @@
-# models:
-#   - name: gold_region_sales
-#     description: "{{ doc('gold_region_sales') }}"
-#     data_tests:
-#       - dbt_expectations.expect_table_column_count_to_equal:
-#           value: 7
-#       - dbt_expectations.expect_table_row_count_to_equal_other_table:
-#           compare_model: source('bronze', 'region_sales')
-#           factor: 1
-#     columns:
-#       - name: id
-#         data_tests:
-#             - dbt_expectations.expect_column_to_exist
-#             - dbt_expectations.expect_column_values_to_be_of_type:
-#                 column_type: BIGINT
-#             - unique
-#             - not_null
-
-#       - name: region_name
-#         data_tests:
-#           - dbt_expectations.expect_column_to_exist
-#           - dbt_expectations.expect_column_values_to_be_of_type:
-#               column_type: CHARACTER VARYING
-#           - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
-#               column_name: region_name
-#               compare_model: source('bronze','region')
-#               compare_column_name: region_name
-#           - dbt_expectations.expect_column_values_to_be_in_set:
-#               value_set: ['North America', 'Europe', 'Japan', 'Other']
-#           - not_null
-
-#       - name: platform_name
-#         data_tests:
-#           - dbt_expectations.expect_column_to_exist
-#           - dbt_expectations.expect_column_values_to_be_of_type:
-#               column_type: CHARACTER VARYING
-#           - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
-#               column_name: platform_name
-#               compare_model: source('bronze','platform')
-#               compare_column_name: platform_name
-#           - dbt_expectations.expect_column_values_to_be_in_set:
-#               value_set: ['Wii', 'NES', 'GB', 'DS', 'X360', 'PS3', 'PS2', 'SNES', 'GBA', '3DS', 'PS4', 'N64', 'PS', 'XB', 'PC', '2600', 'PSP', 'XOne', 'GC', 'WiiU', 'GEN', 'DC', 'PSV', 'SAT', 'SCD', 'WS', 'NG', 'TG16', '3DO', 'GG', 'PCFX']
-#           - not_null
-
-#       - name: release_year
-#         data_tests:
-#           - dbt_expectations.expect_column_to_exist
-#           - dbt_expectations.expect_column_values_to_be_of_type:
-#               column_type: TEXT
-#           - dbt_expectations.expect_column_value_lengths_to_equal:
-#               value: 4
-#           - not_null
+models:
+  - name: gold_region_sales
+    description: "{{ doc('gold_region_sales') }}"
+    data_tests:
+      - dbt_expectations.expect_table_column_count_to_equal:
+          value: 7
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('bronze', 'region_sales')
+          factor: 1
+          row_condition: "id is not null" 
+          compare_row_condition: "region_id is not null" 
       
-#       - name: genre_name
-#         data_tests:
-#           - dbt_expectations.expect_column_to_exist
-#           - dbt_expectations.expect_column_values_to_be_of_type:
-#               column_type: CHARACTER VARYING
-#           - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
-#               column_name: genre_name
-#               compare_model: source('bronze','genre')
-#               compare_column_name: genre_name
-#           - dbt_expectations.expect_column_values_to_be_in_set:
-#               value_set: ['Action', 'Adventure', 'Fighting', 'Misc', 'Platform', 'Puzzle', 'Racing', 'Role-Playing', 'Shooter', 'Simulation', 'Sports', 'Strategy']
-#           - not_null
-      
-#       - name: game_name
-#         data_tests:
-#           - dbt_expectations.expect_column_to_exist
-#           - dbt_expectations.expect_column_values_to_be_of_type:
-#               column_type: CHARACTER VARYING
-#           - dbt_expectations.expect_column_distinct_count_to_equal_other_table:
-#               column_name: game_name
-#               compare_model: source('bronze','game')
-#               compare_column_name: game_name
-#           - not_null
+    columns:
+      - name: id
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+                column_type_list: [INTEGER, BIGINT]
+          - unique
+          - not_null
 
-#       - name: num_sales
-#         data_tests:
-#           - dbt_expectations.expect_column_to_exist
-#           - dbt_expectations.expect_column_values_to_be_of_type:
-#               column_type: NUMERIC
-#           - dbt_expectations.expect_column_values_to_be_between:
-#               min_value: 0
-#               strictly: False
-#           - not_null
+      - name: region_name
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: CHARACTER VARYING
+          - values_to_be_in_other_table:
+              compare_model: source('bronze', 'region')
+              compare_column_name: region_name
+          - not_null
+
+      - name: platform_name
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: CHARACTER VARYING
+          - values_to_be_in_other_table:
+              compare_model: source('bronze', 'platform')
+              compare_column_name: platform_name
+          - not_null
+
+      - name: release_year
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: INTEGER
+          - number_length_equal_to:
+              number_length: 4
+          - not_null
+      
+      - name: genre_name
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: CHARACTER VARYING
+          - values_to_be_in_other_table:
+              compare_model: source('bronze', 'genre')
+              compare_column_name: genre_name
+          - not_null
+      
+      - name: game_name
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: CHARACTER VARYING
+          - values_to_be_in_other_table:
+              compare_model: source('bronze', 'game')
+              compare_column_name: game_name
+          - not_null
+
+      - name: num_sales
+        data_tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: NUMERIC
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              strictly: False
+          - not_null

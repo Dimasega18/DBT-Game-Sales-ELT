@@ -12,7 +12,6 @@ sources:
               value: 3
         columns:
           - name: id
-            description: "A unique identifier for each game."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -21,7 +20,6 @@ sources:
               - not_null
           
           - name: genre_id
-            description: "The ID linking the game to its genre in the genre table."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -32,7 +30,6 @@ sources:
               - not_null
 
           - name: game_name
-            description: "The full name of the game."
             data_tests:
               - dbt_expectations.expect_column_to_exist
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -137,7 +134,7 @@ sources:
               - not_null
       
       - name: platform
-        description: "{{ doc('genre') }}"
+        description: "{{ doc('platform') }}"
         data_tests:
           - dbt_expectations.expect_table_column_count_to_equal:
               value: 2
