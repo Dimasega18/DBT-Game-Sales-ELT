@@ -135,12 +135,6 @@ Contributions are welcome! Please submit a pull request or create an issue if yo
 
 ---
 
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
----
-
 ## Acknowledgments
 
 Special thanks to the creators of the raw dataset and the dbt community for their incredible resources and support.
