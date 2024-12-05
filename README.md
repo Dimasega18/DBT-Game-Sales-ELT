@@ -111,23 +111,28 @@ The raw dataset includes information about games, platforms, genres, publishers,
 3. **Set up your dbt profile:**  
    Refer to the [dbt Profile Setup Guide](https://docs.getdbt.com/docs/core/connect-data-platform/profiles.yml). Ensure that the `project_name` in `dbt_project.yml` matches the name specified in your `profiles.yml`. This step is critical to ensure that dbt correctly associates your project with the appropriate profile configuration.
 
-4. **Debug your dbt setup:**
+4. **Install project dependencies:**
+   ```bash
+   dbt deps
+   ```
+
+5. **Debug your dbt setup:**
    Run the following command to ensure your dbt project is configured correctly:
    ```bash
    dbt debug
    ```
 
-5. **Run the models:**
+6. **Run the models:**
    ```bash
    dbt run
    ```
 
-6. **Test the models:**
+7. **Test the models:**
    ```bash
    dbt test
    ```
 
-7. **Generate and view documentation:**
+8. **Generate and view documentation:**
    ```bash
    dbt docs generate
    dbt docs serve
