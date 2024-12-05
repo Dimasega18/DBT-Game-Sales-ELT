@@ -94,25 +94,38 @@ The raw dataset includes information about games, platforms, genres, publishers,
 ### Prerequisites
 - Install dbt ([Get Started](https://docs.getdbt.com/docs/introduction)).
 
-### Steps
-1. Clone this repository:
+# Steps
+
+1. **Clone this repository:**
    ```bash
    git clone <repository-url>
    ```
-2. Navigate to the project directory:
+
+2. **Navigate to the project directory:**
    ```bash
    cd <project-directory>
    ```
-3. Set up your dbt profile ([Guide](https://docs.getdbt.com/docs/profiles.yml)).
-4. Run the models:
+
+3. **Set up your dbt profile:**  
+   Refer to the [dbt Profile Setup Guide](https://docs.getdbt.com/docs/core/connect-data-platform/profiles.yml). Ensure that the `project_name` in `dbt_project.yml` matches the name specified in your `profiles.yml`. This step is critical to ensure that dbt correctly associates your project with the appropriate profile configuration.
+
+4. **Debug your dbt setup:**
+   Run the following command to ensure your dbt project is configured correctly:
+   ```bash
+   dbt debug
+   ```
+
+5. **Run the models:**
    ```bash
    dbt run
    ```
-5. Test the models:
+
+6. **Test the models:**
    ```bash
    dbt test
    ```
-6. Generate and view documentation:
+
+7. **Generate and view documentation:**
    ```bash
    dbt docs generate
    dbt docs serve
