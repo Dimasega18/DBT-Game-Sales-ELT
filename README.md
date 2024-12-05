@@ -70,6 +70,7 @@ The raw dataset includes information about games, platforms, genres, publishers,
 │   ├── publisher_snapshot.sql
 │   ├── region_sales_snapshot.sql
 ├── tests
+├── dbt_project.yml
 ├── README.md
 ```
 
